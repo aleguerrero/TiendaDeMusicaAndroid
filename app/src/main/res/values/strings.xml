@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">TiendaDeMusicaAndroid</string>
+    <string name="agregar_cliente">Agregar Cliente</string>
+    <string name="agregar_lbum">Agregar Álbum</string>
+    <string name="agregar_factura">Agregar Factura</string>
+    <string name="tienda_de_m_sica">Tienda de Música</string>
+    <string name="tienda_de_m_sica">Tienda de Música</string>
+    <string name="facturaci_n">Facturación</string>
+    <string name="tienda_de_m_sica">Tienda de Música</string>
+    <string name="clientes">Clientes</string>
+    <string name="lbumes">Álbumes</string>
 </resources>
