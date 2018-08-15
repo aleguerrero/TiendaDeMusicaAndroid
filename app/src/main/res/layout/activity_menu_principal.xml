@@ -7,7 +7,7 @@
     tools:context=".MenuPrincipal">
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnFacturacion"
         android:layout_width="395dp"
         android:layout_height="120dp"
         android:layout_marginBottom="80dp"
@@ -20,25 +20,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7"
+        app:layout_constraintTop_toBottomOf="@+id/btnAlbumes"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btnAlbumes"
         android:layout_width="395dp"
         android:layout_height="121dp"
         android:background="@android:color/transparent"
         android:drawableStart="@drawable/addalbum"
         android:text="@string/lbumes"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/btnFacturacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/btnClientes" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btnClientes"
         android:layout_width="395dp"
         android:layout_height="121dp"
         android:layout_marginBottom="8dp"
@@ -46,10 +46,10 @@
         android:drawableStart="@drawable/adduser"
         android:text="@string/clientes"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
-        app:layout_constraintEnd_toEndOf="@+id/button7"
+        app:layout_constraintBottom_toTopOf="@+id/btnAlbumes"
+        app:layout_constraintEnd_toEndOf="@+id/btnAlbumes"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/button7"
+        app:layout_constraintStart_toStartOf="@+id/btnAlbumes"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <android.support.constraint.Guideline
@@ -77,7 +77,7 @@
         android:text="@string/tienda_de_m_sica"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintBottom_toTopOf="@+id/btnClientes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
