@@ -47,9 +47,12 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
     List<Map<String, String>> listaClientes = new ArrayList<>();
     SimpleAdapter adapter;
 
-    //Crea otra lista
+    //Crea otra lista para busqueda
     List<Map<String, String>> listaClientesBusqueda = new ArrayList<>();
     SimpleAdapter adapterBusqueda;
+
+    //boolean para busqueda
+    boolean busqueda = false;
 
 
     //FireBase
@@ -103,6 +106,12 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //limpia lista
+                listaClientes.clear();
+
+                //limpia clientes
+                clientes.clear();
+
                 try {
                     //Toma información y la guarda
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -153,14 +162,63 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                 String a = parent.getItemAtPosition(position).toString();
+                 if (busqueda) {
 
+                     //ArrayList para mandar a Edicion
+                     ArrayList<String> clienteReturn = new ArrayList<>();
 
-                //Busca info de cliente en lista
-                for (Cliente cliente : clientes) {
+                     //Toma id
+                     String idCliente = listaClientesBusqueda.get(position).get("id");
 
+                     //Ciclo para buscar por clientes
+                     for (Cliente cliente : clientes) {
 
-                }
+                         //verifica que el ID sea igual al que se tomó
+                         if (idCliente.equals(cliente.id)) {
+                             //toma info
+                             clienteReturn.add(cliente.id);
+                             clienteReturn.add(cliente.nombre);
+                             clienteReturn.add(cliente.apellidos);
+                             clienteReturn.add(cliente.correoElectronico);
+                         }
+
+                     }
+
+                     //Crea intent
+                     Intent intent = new Intent(Clientes_Mostrar.this, EdicionClienteFrm.class);
+                     intent.putExtra("agregar", false);
+                     intent.putExtra("cliente", clienteReturn);
+
+                     startActivity(intent);
+
+                 } else {
+                     //ArrayList para mandar a Edicion
+                     ArrayList<String> clienteReturn = new ArrayList<>();
+
+                     //Toma id
+                     String idCliente = listaClientes.get(position).get("id");
+
+                     //Ciclo para buscar por clientes
+                     for (Cliente cliente : clientes) {
+
+                         //verifica que el ID sea igual al que se tomó
+                         if (idCliente.equals(cliente.id)) {
+                             //toma info
+                             clienteReturn.add(cliente.id);
+                             clienteReturn.add(cliente.nombre);
+                             clienteReturn.add(cliente.apellidos);
+                             clienteReturn.add(cliente.correoElectronico);
+                         }
+
+                     }
+
+                     //Crea intent
+                     Intent intent = new Intent(Clientes_Mostrar.this, EdicionClienteFrm.class);
+                     intent.putExtra("agregar", false);
+                     intent.putExtra("cliente", clienteReturn);
+
+                     startActivity(intent);
+                 }
             }
         });
     }
@@ -171,6 +229,12 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
             case R.id.btnBuscar:
 
                 try {
+
+                    //activa boolean
+                    busqueda = true;
+
+                    //limpia busqueda
+                    listaClientesBusqueda.clear();
 
                     //Oculta teclado
                     hideKeyboard(this);
@@ -216,6 +280,15 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
                     //establece otro adapter
                     lvClientes.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+
+                    //limpia lista
+                    listaClientesBusqueda.clear();
+
+                    //vacia EditText
+                    etBuscarCliente.getText().clear();
+
+                    //desactiva busqueda
+                    busqueda = false;
 
                     //break
                     break;

@@ -49,34 +49,19 @@
         app:layout_constraintVertical_bias="0.0">
 
         <EditText
-            android:id="@+id/etCorreoElectronico"
+            android:id="@+id/etCedula"
             android:layout_width="288dp"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="128dp"
             android:ems="10"
-            android:hint="@string/correo_electr_nicoEC"
+            android:hint="@string/c_dulaEC"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etApellidos" />
-
-        <EditText
-            android:id="@+id/etApellidos"
-            android:layout_width="288dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="@string/apellidosEC"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNombre" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etNombre"
@@ -94,19 +79,47 @@
             app:layout_constraintTop_toBottomOf="@+id/etCedula" />
 
         <EditText
-            android:id="@+id/etCedula"
+            android:id="@+id/etApellidos"
             android:layout_width="288dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="@string/c_dulaEC"
+            android:hint="@string/apellidosEC"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/etNombre" />
+
+        <EditText
+            android:id="@+id/etCorreoElectronico"
+            android:layout_width="288dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/correo_electr_nicoEC"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etApellidos" />
+
+        <Button
+            android:id="@+id/btnAgModCliente"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="52dp"
+            android:text="@string/agregar_clienteEC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etCorreoElectronico" />
 
         <Button
             android:id="@+id/btnBorrarCliente"
@@ -121,18 +134,5 @@
             app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnAgModCliente" />
-
-        <Button
-            android:id="@+id/btnAgModCliente"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="52dp"
-            android:text="@string/agregar_clienteEC"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etCorreoElectronico" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
