@@ -7,8 +7,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String id, String nombre, String apellidos, String correoElectronico) {
-        this.id = id;
+    public Cliente(String nombre, String apellidos, String correoElectronico) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correoElectronico = correoElectronico;

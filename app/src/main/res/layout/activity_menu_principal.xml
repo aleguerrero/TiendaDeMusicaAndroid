@@ -27,7 +27,7 @@
         android:id="@+id/btnAlbumes"
         android:layout_width="395dp"
         android:layout_height="121dp"
-        android:background="@android:color/transparent"
+        android:background="?attr/colorControlNormal"
         android:drawableStart="@drawable/addalbum"
         android:text="@string/lbumes"
         android:textAlignment="center"

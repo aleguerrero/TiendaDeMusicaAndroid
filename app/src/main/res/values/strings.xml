@@ -8,4 +8,12 @@
     <string name="buscar">Buscar</string>
     <string name="clientesA">Clientes</string>
     <string name="agregar_cliente">Agregar Cliente</string>
+    <string name="cancelar_b_squeda">Cancelar Búsqueda</string>
+    <string name="clientesEC">Clientes</string>
+    <string name="correo_electr_nicoEC">Correo Electrónico</string>
+    <string name="apellidosEC">Apellidos</string>
+    <string name="c_dulaEC">Cédula</string>
+    <string name="nombreEC">Nombre</string>
+    <string name="agregar_clienteEC">Agregar Cliente</string>
+    <string name="borrar_clienteEC">Borrar Cliente</string>
 </resources>
