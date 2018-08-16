@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Clientes_Mostrar">
+    tools:context=".Albumes_Mostrar">
 
     <EditText
         android:id="@+id/etBuscarNombre"
@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="68dp"
         android:ems="10"
-        android:hint="@string/buscar_por_nombre"
+        android:hint="@string/buscar_por_nombre_de_lbumAM"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/btnBuscar"
         app:layout_constraintHorizontal_bias="0.5"
@@ -34,12 +34,13 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="108dp"
+        android:layout_width="123dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/clientesA"
+        android:text="@string/lbumesAM"
+        android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/etBuscarNombre"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +81,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/agregar_cliente"
+            android:text="@string/agregar_lbumAM"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnCancelar"
             app:layout_constraintHorizontal_bias="0.5"
@@ -90,7 +91,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <ListView
-        android:id="@+id/lvClientes"
+        android:id="@+id/lvAlbumes"
         android:layout_width="395dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"

@@ -18,29 +18,29 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class EdicionClienteFrm extends AppCompatActivity implements View.OnClickListener {
+public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickListener {
 
     //EditTexts
-    EditText etCedula;
-    EditText etNombre;
-    EditText etApellidos;
-    EditText etCorreoElectronico;
+    EditText etAlbum;
+    EditText etArtista;
+    EditText etGenero;
+    EditText etYear;
 
     //Buttons
-    Button btnAgModCliente;
-    Button btnBorrarCliente;
+    Button btnAgModAlbum;
+    Button btnBorrarAlbum;
 
     //FireBase
-    DatabaseReference mDBCliente = FirebaseDatabase.getInstance().getReference().child("Clientes");
+    DatabaseReference mDBAlbum = FirebaseDatabase.getInstance().getReference().child("Albumes");
 
     //Boolean de Agregar
     Boolean agregar;
-    ArrayList cliente;
+    ArrayList album;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edicion_cliente_frm);
+        setContentView(R.layout.activity_edicion_album_frm);
 
         //carga extras
         cargarExtras();
@@ -58,20 +58,20 @@ public class EdicionClienteFrm extends AppCompatActivity implements View.OnClick
         agregar = getIntent().getExtras().getBoolean("agregar");
 
         //carga lista
-        cliente = getIntent().getExtras().getStringArrayList("cliente");
+        album = getIntent().getExtras().getStringArrayList("cliente");
 
     }
 
     private void iniciaPantalla() {
 
         //EditTexts
-        etCedula = (EditText) findViewById(R.id.etAlbum);
-        etNombre = (EditText) findViewById(R.id.etArtista);
-        etApellidos = (EditText) findViewById(R.id.etGenero);
-        etCorreoElectronico = (EditText) findViewById(R.id.etYear);
+        etAlbum = (EditText) findViewById(R.id.etAlbum);
+        etArtista = (EditText) findViewById(R.id.etArtista);
+        etGenero = (EditText) findViewById(R.id.etGenero);
+        etYear = (EditText) findViewById(R.id.etYear);
 
         //Buttons
-        btnAgModCliente = (Button) findViewById(R.id.btnAgModAlbum);
+        btnAgModAlbum = (Button) findViewById(R.id.btnAgModAlbum);
         btnAgModCliente.setOnClickListener(this);
 
         btnBorrarCliente = (Button) findViewById(R.id.btnBorrarCliente);
@@ -162,7 +162,7 @@ public class EdicionClienteFrm extends AppCompatActivity implements View.OnClick
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG);
                 }
 
-            //Borra cliente
+                //Borra cliente
             case R.id.btnBorrarCliente:
 
                 //Muestra cuadro de eliminar
