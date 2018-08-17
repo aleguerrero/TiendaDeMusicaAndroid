@@ -72,39 +72,39 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
         //Buttons
         btnAgModAlbum = (Button) findViewById(R.id.btnAgModAlbum);
-        btnAgModCliente.setOnClickListener(this);
+        btnAgModAlbum.setOnClickListener(this);
 
-        btnBorrarCliente = (Button) findViewById(R.id.btnBorrarCliente);
-        btnBorrarCliente.setOnClickListener(this);
+        btnBorrarAlbum = (Button) findViewById(R.id.btnBorrarCliente);
+        btnBorrarAlbum.setOnClickListener(this);
 
         //Modifica Boton Agregar o Modificar
         if (agregar) {
-            btnAgModCliente.setText("Agregar Cliente");
+            btnAgModAlbum.setText("Agregar Álbum");
         } else {
-            btnAgModCliente.setText("Modificar Cliente");
+            btnAgModAlbum.setText("Modificar Álbum");
 
             //Muestra boton de borrar
-            btnBorrarCliente.setVisibility(View.VISIBLE);
+            btnBorrarAlbum.setVisibility(View.VISIBLE);
 
-            //Agrega Datos de Cliente
-            cargarDatos(cliente);
+            //Agrega Datos de album
+            cargarDatos(album);
         }
 
     }
 
-    private void cargarDatos(ArrayList cliente) {
+    private void cargarDatos(ArrayList album) {
 
         try {
             //Carga datos en EditTexts
-            etCedula.setText(cliente.get(0).toString());
+            etAlbum.setText(album.get(0).toString());
 
             //deshabilita ID
-            etCedula.setEnabled(false);
+            etAlbum.setEnabled(false);
 
             //continua cargando datos
-            etNombre.setText(cliente.get(1).toString());
-            etApellidos.setText(cliente.get(2).toString());
-            etCorreoElectronico.setText(cliente.get(3).toString());
+            etArtista.setText(album.get(1).toString());
+            etGenero.setText(album.get(2).toString());
+            etYear.setText(album.get(3).toString());
         } catch (Exception e) {
             Toast.makeText(this, "Hubo un error: \n" + e, Toast.LENGTH_LONG);
         }
@@ -122,15 +122,16 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                 try {
                     //Verifica si es Agregar o Modificar
                     if (agregar) {
-                        //Crea cliente
-                        Cliente cliente = new Cliente(
-                                etNombre.getText().toString(),
-                                etApellidos.getText().toString(),
-                                etCorreoElectronico.getText().toString()
+                        //Crea album
+                        Album albumModificar = new Album(
+                                etAlbum.getText().toString(),
+                                etArtista.getText().toString(),
+                                etGenero.getText().toString(),
+                                etYear.getText().toString()
                         );
 
                         //Agrega a FireBase
-                        mDBCliente.child(etCedula.getText().toString()).setValue(cliente);
+                        mDBAlbum.push().setValue(albumModificar);
 
                         //Toast
                         Toast.makeText(this, "Agregado con éxito", Toast.LENGTH_LONG);
@@ -142,15 +143,16 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
                     } else {
 
-                        //Crea cliente
-                        Cliente cliente = new Cliente(
-                                etNombre.getText().toString(),
-                                etApellidos.getText().toString(),
-                                etCorreoElectronico.getText().toString()
+                        //Crea album
+                        Album albumMostrar = new Album(
+                                etAlbum.getText().toString(),
+                                etArtista.getText().toString(),
+                                etGenero.getText().toString(),
+                                etYear.getText().toString()
                         );
 
                         //Lo modifica
-                        mDBCliente.child(etCedula.getText().toString()).setValue(cliente);
+                        mDBAlbum.child(album.get(0).toString()).setValue(albumMostrar);
 
                         //Cierra
                         this.finish();
@@ -162,12 +164,12 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG);
                 }
 
-                //Borra cliente
+                //Borra album
             case R.id.btnBorrarCliente:
 
                 //Muestra cuadro de eliminar
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("¿Seguro de que desea eliminar el cliente?").setPositiveButton("Sí", dialogClickListener)
+                builder.setMessage("¿Seguro de que desea eliminar el álbum?").setPositiveButton("Sí", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
 
         }
@@ -193,10 +195,10 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
                     try {
                         //elimina dato
-                        mDBCliente.child(etCedula.getText().toString()).removeValue();
+                        mDBAlbum.child(album.get(0).toString()).removeValue();
 
                         //String mensaje
-                        String mensaje = "Cliente eliminado";
+                        String mensaje = "Álbum eliminado";
 
                         //Muestra texto eliminado
                         mostrarToast(mensaje);

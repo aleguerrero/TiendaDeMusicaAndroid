@@ -13,7 +13,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="@string/lbumEA"
+        android:text="@string/lbumEA4"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="36dp"
             android:ems="10"
-            android:hint="@string/lbumEA"
+            android:hint="@string/lbumEA1"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.6"
@@ -76,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintTop_toBottomOf="@+id/btnBuscarAlbum" />
 
         <EditText
             android:id="@+id/etGenero"
@@ -136,7 +136,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnAgModAlbum" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnBuscarAlbum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
