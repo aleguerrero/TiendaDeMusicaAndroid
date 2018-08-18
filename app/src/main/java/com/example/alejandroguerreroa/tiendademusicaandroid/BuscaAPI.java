@@ -4,31 +4,28 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class BuscaAPI extends AsyncTask<Void, Void, Void> {
 
-    public String album;
-    public String url = "http://ws.audioscrobbler.com/2.0/?method=album.getInfo&artist=Slayer&album" +
-            "=ReignInBlood&api_key=e011f3deca10341bc14fc4384dcf79b8&format=json";
+    public String url = "http://www.json-generator.com/api/json/get/bVTuCHBCUO?indent=2";
     public String textoBuffer;
-    public String textoFinal;
-
-    public BuscaAPI(String album) {
-        this.album = album;
-    }
+    public ArrayList<String> textoFinal;
 
     @Override
     protected void onPostExecute(Void aVoid) {
 
         try {
             //Guarda datos
-            JSONObject clienteJson = new JSONObject(new String(textoFinal));
+            JSONArray clienteJson = new JSONArray(new ArrayList(textoFinal));
 
 
         } catch (JSONException e) {
@@ -61,6 +58,5 @@ public class BuscaAPI extends AsyncTask<Void, Void, Void> {
 
 
         }
-        return null;
     }
 }
