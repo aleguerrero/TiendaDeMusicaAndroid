@@ -16,4 +16,11 @@
     <string name="nombreEC">Nombre</string>
     <string name="agregar_clienteEC">Agregar Cliente</string>
     <string name="borrar_clienteEC">Borrar Cliente</string>
+    <string name="factura">Facturación</string>
+    <string name="guardar">Guardar</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="agregar_a_carrito">Agregar a Carrito</string>
+    <string name="total">Total</string>
+    <string name="_0">0</string>
+    <string name="pagar">Pagar</string>
 </resources>

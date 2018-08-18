@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Clientes_Mostrar" />
-        <activity android:name=".EdicionClienteFrm"></activity>
+        <activity android:name=".EdicionClienteFrm" />
+        <activity android:name=".FacturaFrm"></activity>
     </application>
 
 </manifest>
