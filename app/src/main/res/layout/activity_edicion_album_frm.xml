@@ -59,7 +59,7 @@
             android:hint="@string/lbumEA1"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,29 +69,15 @@
             android:layout_height="45dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/artistaEA"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnBuscarAlbum" />
-
-        <EditText
-            android:id="@+id/etGenero"
-            android:layout_width="288dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="@string/g_neroEA"
-            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/spGeneros"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etArtista" />
+            app:layout_constraintTop_toBottomOf="@+id/etAlbum" />
 
         <EditText
             android:id="@+id/etYear"
@@ -99,14 +85,14 @@
             android:layout_height="45dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/a_oEA"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/btnAgModAlbum"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etGenero" />
+            app:layout_constraintTop_toBottomOf="@+id/spGeneros" />
 
         <Button
             android:id="@+id/btnAgModAlbum"
@@ -116,8 +102,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="52dp"
             android:text="@string/agregar_lbumEA"
+            app:layout_constraintBottom_toTopOf="@+id/btnBorrarAlbum"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etYear" />
 
@@ -130,22 +117,25 @@
             android:layout_marginTop="8dp"
             android:text="@string/borrar_lbumEA"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnAgModAlbum" />
 
-        <Button
-            android:id="@+id/btnBuscarAlbum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spGeneros"
+            android:layout_width="283dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/buscar_lbumEA"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/etYear"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etAlbum" />
+            app:layout_constraintTop_toBottomOf="@+id/etArtista" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -2,15 +2,16 @@ package com.example.alejandroguerreroa.tiendademusicaandroid;
 
 public class Album {
 
-    public String id, artista, album, genero, year;
+    public String Artista, Album, Genero;
+    public long id, Year;
 
     public Album() {
     }
 
-    public Album(String artista, String album, String genero, String year) {
-        this.artista = artista;
-        this.album = album;
-        this.genero = genero;
-        this.year = year;
+    public Album(String artista, String album, String genero, long year) {
+        Artista = artista;
+        Album = album;
+        Genero = genero;
+        Year = year;
     }
 }

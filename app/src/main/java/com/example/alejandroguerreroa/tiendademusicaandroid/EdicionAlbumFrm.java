@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +12,20 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickListener {
@@ -23,8 +33,10 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
     //EditTexts
     EditText etAlbum;
     EditText etArtista;
-    EditText etGenero;
     EditText etYear;
+
+    //Spinner
+    Spinner spGeneros;
 
     //Buttons
     Button btnAgModAlbum;
@@ -36,6 +48,9 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
     //Boolean de Agregar
     Boolean agregar;
     ArrayList album;
+
+    //ArrayList de Generos
+    ArrayList<String> generos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +65,9 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
         //No abre el teclado automaticamente
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        //Carga Spinner
+        new BuscaAPI().execute();
     }
 
     private void cargarExtras() {
@@ -67,14 +85,13 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
         //EditTexts
         etAlbum = (EditText) findViewById(R.id.etAlbum);
         etArtista = (EditText) findViewById(R.id.etArtista);
-        etGenero = (EditText) findViewById(R.id.etGenero);
         etYear = (EditText) findViewById(R.id.etYear);
 
         //Buttons
         btnAgModAlbum = (Button) findViewById(R.id.btnAgModAlbum);
         btnAgModAlbum.setOnClickListener(this);
 
-        btnBorrarAlbum = (Button) findViewById(R.id.btnBorrarCliente);
+        btnBorrarAlbum = (Button) findViewById(R.id.btnBorrarAlbum);
         btnBorrarAlbum.setOnClickListener(this);
 
         //Modifica Boton Agregar o Modificar
@@ -90,6 +107,9 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
             cargarDatos(album);
         }
 
+        //Spinners
+        spGeneros = findViewById(R.id.spGeneros);
+
     }
 
     private void cargarDatos(ArrayList album) {
@@ -103,7 +123,6 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
             //continua cargando datos
             etArtista.setText(album.get(1).toString());
-            etGenero.setText(album.get(2).toString());
             etYear.setText(album.get(3).toString());
         } catch (Exception e) {
             Toast.makeText(this, "Hubo un error: \n" + e, Toast.LENGTH_LONG);
@@ -122,12 +141,14 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                 try {
                     //Verifica si es Agregar o Modificar
                     if (agregar) {
+
+
                         //Crea album
                         Album albumModificar = new Album(
                                 etAlbum.getText().toString(),
                                 etArtista.getText().toString(),
-                                etGenero.getText().toString(),
-                                etYear.getText().toString()
+                                spGeneros.getSelectedItem().toString(),
+                                Long.parseLong(etYear.getText().toString())
                         );
 
                         //Agrega a FireBase
@@ -147,8 +168,8 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                         Album albumMostrar = new Album(
                                 etAlbum.getText().toString(),
                                 etArtista.getText().toString(),
-                                etGenero.getText().toString(),
-                                etYear.getText().toString()
+                                spGeneros.getSelectedItem().toString(),
+                                Long.parseLong(etYear.getText().toString())
                         );
 
                         //Lo modifica
@@ -224,4 +245,65 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
     private void mostrarToast(String mensaje) {
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG);
     }
+
+    private class BuscaAPI extends AsyncTask<Void, Void, Void> {
+
+        //Crea url
+        URL urlBack;
+        URLConnection connection = null;
+
+        //JSON
+        String url = "http://www.json-generator.com/api/json/get/ceoUOTHDqW?indent=2";
+
+        //Textos
+        String textoFinal = "";
+        String textoBuffer;
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            //Guarda datos
+            try {
+                JSONArray clienteJson = new JSONArray(new String(textoFinal));
+
+                for (int i = 0; i < clienteJson.length(); i++) {
+                    JSONObject jsonObject = clienteJson.getJSONObject(i);
+
+                    generos.add(jsonObject.getString("generos"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try {
+
+                //Carga en variable
+                urlBack = new URL(url);
+                connection = urlBack.openConnection();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(urlBack.openStream()));
+
+                //Carga en textoFinal
+                while ((textoBuffer = br.readLine()) != null) {
+                    textoFinal += textoBuffer;
+                }
+
+                //Cierra
+                br.close();
+
+            } catch (Exception e) {
+
+            }
+            return null;
+        }
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.example.alejandroguerreroa.tiendademusicaandroid;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -38,6 +39,9 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
             //Abre pestaña clientes
             case R.id.btnClientes:
                 startActivity(new Intent(MenuPrincipal.this, Clientes_Mostrar.class));
+                break;
+            case R.id.btnAlbumes:
+                startActivity(new Intent(MenuPrincipal.this, Albumes_Mostrar.class));
                 break;
         }
     }

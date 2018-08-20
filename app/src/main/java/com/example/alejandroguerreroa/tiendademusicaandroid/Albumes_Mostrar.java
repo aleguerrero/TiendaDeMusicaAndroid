@@ -122,18 +122,18 @@ public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickLi
                         Map<String, String> mapaAlbumes = new LinkedHashMap<>();
 
                         //agrega info a mapa
-                        mapaAlbumes.put("nombre", album.album + " de " +  album.artista);
+                        mapaAlbumes.put("nombre", album.Album + " de " +  album.Artista);
                         mapaAlbumes.put("id", snapshot.getKey());
 
                         //Crea cliente para lista Clientes
                         Album albumLista = new Album();
 
                         //Atributos
-                        albumLista.id = snapshot.getKey();
-                        albumLista.album = album.album;
-                        albumLista.artista = album.artista;
-                        albumLista.genero = album.genero;
-                        albumLista.year = album.year;
+                        albumLista.id = Long.parseLong(snapshot.getKey());
+                        albumLista.Album = album.Album;
+                        albumLista.Artista = album.Artista;
+                        albumLista.Genero = album.Genero;
+                        albumLista.Year = album.Year;
 
                         //agrega a lista
                         listaAlbumes.add(mapaAlbumes);
@@ -178,11 +178,11 @@ public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickLi
                         //verifica que el ID sea igual al que se tomó
                         if (idAlbum.equals(album.id)) {
                             //toma info
-                            albumReturn.add(album.id);
-                            albumReturn.add(album.album);
-                            albumReturn.add(album.artista);
-                            albumReturn.add(album.genero);
-                            albumReturn.add(album.year);
+                            albumReturn.add(Long.toString(album.id));
+                            albumReturn.add(album.Album);
+                            albumReturn.add(album.Artista);
+                            albumReturn.add(album.Genero);
+                            albumReturn.add(Long.toString(album.Year));
                         }
 
                     }
@@ -207,11 +207,11 @@ public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickLi
                         //verifica que el ID sea igual al que se tomó
                         if (idAlbum.equals(album.id)) {
                             //toma info
-                            albumReturn.add(album.id);
-                            albumReturn.add(album.album);
-                            albumReturn.add(album.artista);
-                            albumReturn.add(album.genero);
-                            albumReturn.add(album.year);
+                            albumReturn.add(Long.toString(album.id));
+                            albumReturn.add(album.Album);
+                            albumReturn.add(album.Artista);
+                            albumReturn.add(album.Genero);
+                            albumReturn.add(Long.toString(album.Year));
                         }
 
                     }
@@ -230,9 +230,6 @@ public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnBuscarAlbum:
-
-
 
             case R.id.btnBuscar:
 
