@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -23,10 +24,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickListener {
 
@@ -246,61 +252,62 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG);
     }
 
-    private class BuscaAPI extends AsyncTask<Void, Void, Void> {
 
-        //Crea url
-        URL urlBack;
-        URLConnection connection = null;
-
-        //JSON
-        String url = "http://www.json-generator.com/api/json/get/ceoUOTHDqW?indent=2";
-
-        //Textos
-        String textoFinal = "";
-        String textoBuffer;
+    private class BuscaAPI extends AsyncTask<String, String, ArrayList<String>> {
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected ArrayList<String> doInBackground(String... strings) {
+            //JSON
+            String urlJson = "http://www.json-generator.com/api/json/get/ceoUOTHDqW?indent=2";
 
-            //Guarda datos
+            //Dunno
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
             try {
-                JSONArray clienteJson = new JSONArray(new String(textoFinal));
+                URL url = new URL(urlJson);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
 
-                for (int i = 0; i < clienteJson.length(); i++) {
-                    JSONObject jsonObject = clienteJson.getJSONObject(i);
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
 
-                    generos.add(jsonObject.getString("generos"));
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
                 }
+
+                String finalJson = buffer.toString();
+                JSONObject json = new JSONObject(new String(finalJson));
+                JSONArray jsonArray = (JSONArray) json.get("generos");
+
+                List<String> listaGeneros = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    listaGeneros.add(jsonArray.get(i).toString());
+                }
+
+                return (ArrayList<String>) listaGeneros;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
-
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            try {
-
-                //Carga en variable
-                urlBack = new URL(url);
-                connection = urlBack.openConnection();
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(urlBack.openStream()));
-
-                //Carga en textoFinal
-                while ((textoBuffer = br.readLine()) != null) {
-                    textoFinal += textoBuffer;
-                }
-
-                //Cierra
-                br.close();
-
-            } catch (Exception e) {
-
-            }
             return null;
         }
     }
