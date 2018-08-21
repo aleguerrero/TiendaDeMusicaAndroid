@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EdicionClienteFrm">
+    tools:context=".EdicionAlbumFrm">
 
     <TextView
         android:id="@+id/textView4"
@@ -13,7 +13,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="@string/clientesEC"
+        android:text="@string/lbumEA4"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,12 +51,12 @@
         <EditText
             android:id="@+id/etAlbum"
             android:layout_width="288dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="36dp"
             android:ems="10"
-            android:hint="@string/c_dulaEC"
+            android:hint="@string/lbumEA1"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -69,29 +69,15 @@
             android:layout_height="45dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="@string/nombreEC"
+            android:hint="@string/artistaEA"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/spGeneros"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etAlbum" />
-
-        <EditText
-            android:id="@+id/etGenero"
-            android:layout_width="288dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="@string/apellidosEC"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etArtista" />
 
         <EditText
             android:id="@+id/etYear"
@@ -99,14 +85,14 @@
             android:layout_height="45dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="@string/correo_electr_nicoEC"
+            android:hint="@string/a_oEA"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/btnAgModAlbum"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etGenero" />
+            app:layout_constraintTop_toBottomOf="@+id/spGeneros" />
 
         <Button
             android:id="@+id/btnAgModAlbum"
@@ -115,24 +101,41 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="52dp"
-            android:text="@string/agregar_clienteEC"
+            android:text="@string/agregar_lbumEA"
+            app:layout_constraintBottom_toTopOf="@+id/btnBorrarAlbum"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etYear" />
 
         <Button
-            android:id="@+id/btnBorrarCliente"
+            android:id="@+id/btnBorrarAlbum"
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/borrar_clienteEC"
+            android:text="@string/borrar_lbumEA"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnAgModAlbum" />
+
+        <Spinner
+            android:id="@+id/spGeneros"
+            android:layout_width="283dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/etYear"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etArtista" />
     </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>
