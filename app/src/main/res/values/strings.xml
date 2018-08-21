@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">TiendaDeMusicaAndroid</string>
+    <string name="tienda_de_m_sica">Tienda de Música</string>
+    <string name="facturaci_n">Facturación</string>
+    <string name="lbumes">Álbumes</string>
+    <string name="clientes">Clientes</string>
+    <string name="buscar_por_nombre">Buscar por Nombre</string>
+    <string name="buscar">Buscar</string>
+    <string name="clientesA">Clientes</string>
+    <string name="agregar_cliente">Agregar Cliente</string>
+    <string name="cancelar_b_squeda">Cancelar Búsqueda</string>
+    <string name="clientesEC">Clientes</string>
+    <string name="correo_electr_nicoEC">Correo Electrónico</string>
+    <string name="apellidosEC">Apellidos</string>
+    <string name="c_dulaEC">Cédula</string>
+    <string name="nombreEC">Nombre</string>
+    <string name="agregar_clienteEC">Agregar Cliente</string>
+    <string name="borrar_clienteEC">Borrar Cliente</string>
+    <string name="factura">Facturación</string>
+    <string name="guardar">Guardar</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="agregar_a_carrito">Agregar a Carrito</string>
+    <string name="total">Total</string>
+    <string name="_0">0</string>
+    <string name="pagar">Pagar</string>
+    <string name="buscar_por_nombre_de_lbumAM">Buscar por Nombre de Álbum</string>
+    <string name="lbumesAM">Álbumes</string>
+    <string name="agregar_lbumAM">Agregar Álbum</string>
+    <string name="artistaEA">Artista</string>
+    <string name="buscar_lbumEA">Buscar Álbum</string>
+    <string name="g_neroEA">Género</string>
+    <string name="a_oEA">Año</string>
+    <string name="borrar_lbumEA">Borrar Álbum</string>
+    <string name="agregar_lbumEA">Agregar Álbum</string>
+    <string name="lbumEA1">Álbum</string>
+    <string name="lbumEA4">Álbum</string>
 </resources>
