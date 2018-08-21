@@ -23,4 +23,15 @@
     <string name="total">Total</string>
     <string name="_0">0</string>
     <string name="pagar">Pagar</string>
+    <string name="buscar_por_nombre_de_lbumAM">Buscar por Nombre de Álbum</string>
+    <string name="lbumesAM">Álbumes</string>
+    <string name="agregar_lbumAM">Agregar Álbum</string>
+    <string name="artistaEA">Artista</string>
+    <string name="buscar_lbumEA">Buscar Álbum</string>
+    <string name="g_neroEA">Género</string>
+    <string name="a_oEA">Año</string>
+    <string name="borrar_lbumEA">Borrar Álbum</string>
+    <string name="agregar_lbumEA">Agregar Álbum</string>
+    <string name="lbumEA1">Álbum</string>
+    <string name="lbumEA4">Álbum</string>
 </resources>

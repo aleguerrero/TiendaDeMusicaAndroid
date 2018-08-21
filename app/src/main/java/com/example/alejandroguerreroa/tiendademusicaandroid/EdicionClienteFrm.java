@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -67,13 +65,13 @@ public class EdicionClienteFrm extends AppCompatActivity implements View.OnClick
     private void iniciaPantalla() {
 
         //EditTexts
-        etCedula = (EditText) findViewById(R.id.etCedula);
-        etNombre = (EditText) findViewById(R.id.etNombre);
-        etApellidos = (EditText) findViewById(R.id.etApellidos);
-        etCorreoElectronico = (EditText) findViewById(R.id.etCorreoElectronico);
+        etCedula = (EditText) findViewById(R.id.etAlbum);
+        etNombre = (EditText) findViewById(R.id.etArtista);
+        etApellidos = (EditText) findViewById(R.id.etGenero);
+        etCorreoElectronico = (EditText) findViewById(R.id.etYear);
 
         //Buttons
-        btnAgModCliente = (Button) findViewById(R.id.btnAgModCliente);
+        btnAgModCliente = (Button) findViewById(R.id.btnAgModAlbum);
         btnAgModCliente.setOnClickListener(this);
 
         btnBorrarCliente = (Button) findViewById(R.id.btnBorrarCliente);
@@ -119,7 +117,7 @@ public class EdicionClienteFrm extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
 
             //Boton Agregar o Modificar
-            case R.id.btnAgModCliente:
+            case R.id.btnAgModAlbum:
 
                 try {
                     //Verifica si es Agregar o Modificar

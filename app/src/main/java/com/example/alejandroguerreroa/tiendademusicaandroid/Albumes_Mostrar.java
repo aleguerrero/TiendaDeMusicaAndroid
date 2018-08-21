@@ -27,28 +27,28 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickListener{
+public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickListener{
 
     //Edit Texts
-    EditText etBuscarCliente;
+    EditText etBuscarAlbum;
 
     //Buttons
     Button btnBuscar;
-    Button btnAgregarCliente;
+    Button btnAgregarAlbum;
     Button btnCancelar;
 
     //ListView
-    ListView lvClientes;
+    ListView lvAlbumes;
 
     //Lista
-    ArrayList<Cliente> clientes = new ArrayList<>();
+    ArrayList<Album> albumes = new ArrayList<>();
 
     //Lista con Map para ListView con su adapter
-    List<Map<String, String>> listaClientes = new ArrayList<>();
+    List<Map<String, String>> listaAlbumes = new ArrayList<>();
     SimpleAdapter adapter;
 
     //Crea otra lista para busqueda
-    List<Map<String, String>> listaClientesBusqueda = new ArrayList<>();
+    List<Map<String, String>> listaAlbumesBusqueda = new ArrayList<>();
     SimpleAdapter adapterBusqueda;
 
     //boolean para busqueda
@@ -56,12 +56,12 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
 
 
     //FireBase
-    DatabaseReference mDB = FirebaseDatabase.getInstance().getReference().child("Clientes");
+    DatabaseReference mDB = FirebaseDatabase.getInstance().getReference().child("Albumes");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clientes__mostrar);
+        setContentView(R.layout.activity_albumes__mostrar);
 
         //carga items
         iniciaPantalla();
@@ -75,25 +75,25 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
 
     private void iniciaPantalla() {
         //EditText
-        etBuscarCliente = findViewById(R.id.etBuscarNombre);
+        etBuscarAlbum = findViewById(R.id.etBuscarNombre);
 
         //Buttons
         btnBuscar = findViewById(R.id.btnBuscar);
         btnBuscar.setOnClickListener(this);
 
-        btnAgregarCliente = findViewById(R.id.btnAgregarAlbum);
-        btnAgregarCliente.setOnClickListener(this);
+        btnAgregarAlbum = findViewById(R.id.btnAgregarAlbum);
+        btnAgregarAlbum.setOnClickListener(this);
 
         btnCancelar = findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(this);
 
         //ListView
-        lvClientes = findViewById(R.id.lvClientes);
-        adapter = new SimpleAdapter(this, listaClientes,android.R.layout.simple_list_item_2,
+        lvAlbumes = findViewById(R.id.lvAlbumes);
+        adapter = new SimpleAdapter(this, listaAlbumes,android.R.layout.simple_list_item_2,
                 new String[] {"nombre", "id"}, new int[] {android.R.id.text1, android.R.id.text2});
-        adapterBusqueda = new SimpleAdapter(this, listaClientesBusqueda, android.R.layout.simple_list_item_2,
+        adapterBusqueda = new SimpleAdapter(this, listaAlbumesBusqueda, android.R.layout.simple_list_item_2,
                 new String[] {"nombre", "id"}, new int[] {android.R.id.text1, android.R.id.text2});
-        lvClientes.setAdapter(adapter);
+        lvAlbumes.setAdapter(adapter);
 
     }
 
@@ -107,42 +107,44 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //limpia lista
-                listaClientes.clear();
+                listaAlbumes.clear();
 
-                //limpia clientes
-                clientes.clear();
+                //limpia albumes
+                albumes.clear();
 
                 try {
                     //Toma información y la guarda
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         //Saca info
-                        Cliente cliente = snapshot.getValue(Cliente.class);
+                        Album album = snapshot.getValue(Album.class);
 
                         //Crea Mapa
-                        Map<String, String> mapaClientes = new LinkedHashMap<>();
+                        Map<String, String> mapaAlbumes = new LinkedHashMap<>();
 
                         //agrega info a mapa
-                        mapaClientes.put("nombre", cliente.nombre + " " + cliente.apellidos);
-                        mapaClientes.put("id", snapshot.getKey());
+                        mapaAlbumes.put("nombre", album.Album + " de " +  album.Artista);
+                        mapaAlbumes.put("id", snapshot.getKey());
 
                         //Crea cliente para lista Clientes
-                        Cliente clienteLista = new Cliente();
+                        Album albumLista = new Album();
 
                         //Atributos
-                        clienteLista.id = snapshot.getKey();
-                        clienteLista.nombre = cliente.nombre;
-                        clienteLista.apellidos = cliente.apellidos;
-                        clienteLista.correoElectronico = cliente.correoElectronico;
+                        albumLista.id = snapshot.getKey();
+                        albumLista.Album = album.Album;
+                        albumLista.Artista = album.Artista;
+                        albumLista.Genero = album.Genero;
+                        albumLista.Year = album.Year;
 
                         //agrega a lista
-                        listaClientes.add(mapaClientes);
-                        clientes.add(clienteLista);
+                        listaAlbumes.add(mapaAlbumes);
+                        albumes.add(albumLista);
                     }
 
                     //Notifica cambios
                     adapter.notifyDataSetChanged();
+
                 } catch (Exception e) {
-                    Toast.makeText(null, "Hubo un error", Toast.LENGTH_LONG);
+                    mostrarToast("Hubo un error");
                 }
             }
 
@@ -156,69 +158,71 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
         mDB.addValueEventListener(valueEventListener);
     }
 
-    //Toma info de lista y la lleva a EdicionCliente
+    //Toma info de lista y la lleva a EdicionAlbumes
     private void ListViewClick(){
-        lvClientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvAlbumes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                 if (busqueda) {
+                if (busqueda) {
 
-                     //ArrayList para mandar a Edicion
-                     ArrayList<String> clienteReturn = new ArrayList<>();
+                    //ArrayList para mandar a Edicion
+                    ArrayList<String> albumReturn = new ArrayList<>();
 
-                     //Toma id
-                     String idCliente = listaClientesBusqueda.get(position).get("id");
+                    //Toma id
+                    String idAlbum = listaAlbumesBusqueda.get(position).get("id");
 
-                     //Ciclo para buscar por clientes
-                     for (Cliente cliente : clientes) {
+                    //Ciclo para buscar por albumes
+                    for (Album album : albumes) {
 
-                         //verifica que el ID sea igual al que se tomó
-                         if (idCliente.equals(cliente.id)) {
-                             //toma info
-                             clienteReturn.add(cliente.id);
-                             clienteReturn.add(cliente.nombre);
-                             clienteReturn.add(cliente.apellidos);
-                             clienteReturn.add(cliente.correoElectronico);
-                         }
+                        //verifica que el ID sea igual al que se tomó
+                        if (idAlbum.equals(album.id)) {
+                            //toma info
+                            albumReturn.add(album.id);
+                            albumReturn.add(album.Album);
+                            albumReturn.add(album.Artista);
+                            albumReturn.add(album.Genero);
+                            albumReturn.add(Long.toString(album.Year));
+                        }
 
-                     }
+                    }
 
-                     //Crea intent
-                     Intent intent = new Intent(Clientes_Mostrar.this, EdicionClienteFrm.class);
-                     intent.putExtra("agregar", false);
-                     intent.putExtra("cliente", clienteReturn);
+                    //Crea intent
+                    Intent intent = new Intent(Albumes_Mostrar.this, EdicionAlbumFrm.class);
+                    intent.putExtra("agregar", false);
+                    intent.putExtra("cliente", albumReturn);
 
-                     startActivity(intent);
+                    startActivity(intent);
 
-                 } else {
-                     //ArrayList para mandar a Edicion
-                     ArrayList<String> clienteReturn = new ArrayList<>();
+                } else {
+                    //ArrayList para mandar a Edicion
+                    ArrayList<String> albumReturn = new ArrayList<>();
 
-                     //Toma id
-                     String idCliente = listaClientes.get(position).get("id");
+                    //Toma id
+                    String idAlbum = listaAlbumes.get(position).get("id");
 
-                     //Ciclo para buscar por clientes
-                     for (Cliente cliente : clientes) {
+                    //Ciclo para buscar por albumes
+                    for (Album album : albumes) {
 
-                         //verifica que el ID sea igual al que se tomó
-                         if (idCliente.equals(cliente.id)) {
-                             //toma info
-                             clienteReturn.add(cliente.id);
-                             clienteReturn.add(cliente.nombre);
-                             clienteReturn.add(cliente.apellidos);
-                             clienteReturn.add(cliente.correoElectronico);
-                         }
+                        //verifica que el ID sea igual al que se tomó
+                        if (idAlbum.equals(album.id)) {
+                            //toma info
+                            albumReturn.add(album.id);
+                            albumReturn.add(album.Album);
+                            albumReturn.add(album.Artista);
+                            albumReturn.add(album.Genero);
+                            albumReturn.add(Long.toString(album.Year));
+                        }
 
-                     }
+                    }
 
-                     //Crea intent
-                     Intent intent = new Intent(Clientes_Mostrar.this, EdicionClienteFrm.class);
-                     intent.putExtra("agregar", false);
-                     intent.putExtra("cliente", clienteReturn);
+                    //Crea intent
+                    Intent intent = new Intent(Albumes_Mostrar.this, EdicionAlbumFrm.class);
+                    intent.putExtra("agregar", false);
+                    intent.putExtra("cliente", albumReturn);
 
-                     startActivity(intent);
-                 }
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -226,6 +230,7 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.btnBuscar:
 
                 try {
@@ -234,40 +239,41 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
                     busqueda = true;
 
                     //limpia busqueda
-                    listaClientesBusqueda.clear();
+                    listaAlbumesBusqueda.clear();
 
                     //Oculta teclado
                     hideKeyboard(this);
 
                     //Toma Nombre
-                    String nombre = etBuscarCliente.getText().toString();
+                    String nombre = etBuscarAlbum.getText().toString();
 
                     //Loop para buscar clientes
-                    for (Map<String, String> map : listaClientes) {
+                    for (Map<String, String> map : listaAlbumes) {
 
                         //Crea Mapa
-                        Map<String, String> mapaClientes = new HashMap<>();
+                        Map<String, String> mapaAlbumes = new HashMap<>();
 
                         //Separa nombre y apellidos
-                        String[] textos = map.get("nombre").split(" ");
+                        String[] textos = map.get("nombre").split(" de ");
                         String nombreBuscar = textos[0];
 
                         //Busca que el nombre sea igual
                         if (nombre.equals(nombreBuscar)) {
-                            mapaClientes.put("nombre", map.get("nombre"));
-                            mapaClientes.put("id", map.get("id"));
+                            mapaAlbumes.put("nombre", map.get("nombre"));
+                            mapaAlbumes.put("id", map.get("id"));
 
                             //agrega a lista de busqueda
-                            listaClientesBusqueda.add(mapaClientes);
+                            listaAlbumesBusqueda.add(mapaAlbumes);
                         }
                     }
 
                     //notifica adapter
-                    lvClientes.setAdapter(adapterBusqueda);
+                    lvAlbumes.setAdapter(adapterBusqueda);
                     adapterBusqueda.notifyDataSetChanged();
 
                     //break
                     break;
+
                 } catch (Exception e) {
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG);
                 }
@@ -278,20 +284,21 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
 
                 try {
                     //establece otro adapter
-                    lvClientes.setAdapter(adapter);
+                    lvAlbumes.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 
                     //limpia lista
-                    listaClientesBusqueda.clear();
+                    listaAlbumesBusqueda.clear();
 
                     //vacia EditText
-                    etBuscarCliente.getText().clear();
+                    etBuscarAlbum.getText().clear();
 
                     //desactiva busqueda
                     busqueda = false;
 
                     //break
                     break;
+
                 } catch (Exception e) {
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG);
                     break;
@@ -305,7 +312,7 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
                     boolean agregar = true;
 
                     //Crea intento
-                    Intent intent = new Intent(Clientes_Mostrar.this, EdicionClienteFrm.class);
+                    Intent intent = new Intent(Albumes_Mostrar.this, EdicionAlbumFrm.class);
                     intent.putExtra("agregar", agregar);
 
                     //Inicia actividad
@@ -328,5 +335,9 @@ public class Clientes_Mostrar extends AppCompatActivity implements View.OnClickL
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private void mostrarToast(String mensaje) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG);
     }
 }

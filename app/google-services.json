@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "443699912845",
+    "firebase_url": "https://tiendademusicaandroid.firebaseio.com",
+    "project_id": "tiendademusicaandroid",
+    "storage_bucket": "tiendademusicaandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443699912845:android:126e8c8269b4e5ac",
+        "android_client_info": {
+          "package_name": "com.example.alejandroguerreroa.tiendademusicaandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443699912845-o423akms37kab4tlufh5blj4ifo1v2oc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alejandroguerreroa.tiendademusicaandroid",
+            "certificate_hash": "5c5f184bbf3777b62f0d90cdc2424e48d9d6c188"
+          }
+        },
+        {
+          "client_id": "443699912845-tpjbj5k5r8ibubscu42ntfe8h07lcbi3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_gFiju3PKMIrNCU8gACdeBBUit_6PS-4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443699912845-tpjbj5k5r8ibubscu42ntfe8h07lcbi3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
