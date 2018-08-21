@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -57,6 +58,9 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
     //ArrayList de Generos
     ArrayList<String> generos = new ArrayList<>();
+
+    //ArrayAdapter de Generos
+    ArrayAdapter<String> aaGeneros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +119,10 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
         //Spinners
         spGeneros = findViewById(R.id.spGeneros);
+        //Adapter
+        aaGeneros = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, generos);
+        aaGeneros.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spGeneros.setAdapter(aaGeneros);
 
     }
 
@@ -255,10 +263,14 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
     private class BuscaAPI extends AsyncTask<String, String, ArrayList<String>> {
 
+        //JSON
+        String urlJson = "http://www.json-generator.com/api/json/get/ceoUOTHDqW?indent=2";
+
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+
         @Override
         protected ArrayList<String> doInBackground(String... strings) {
-            //JSON
-            String urlJson = "http://www.json-generator.com/api/json/get/ceoUOTHDqW?indent=2";
 
             //Dunno
             HttpURLConnection connection = null;
@@ -271,8 +283,7 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
                 InputStream stream = connection.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
-                StringBuffer buffer = new StringBuffer();
-                String line = "";
+
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line);
@@ -287,7 +298,9 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                     listaGeneros.add(jsonArray.get(i).toString());
                 }
 
-                return (ArrayList<String>) listaGeneros;
+                generos = (ArrayList<String>) listaGeneros;
+
+                aaGeneros.notifyDataSetChanged();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
