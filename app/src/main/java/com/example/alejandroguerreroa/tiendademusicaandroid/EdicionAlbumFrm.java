@@ -57,7 +57,7 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
     ArrayList album;
 
     //ArrayList de Generos
-    ArrayList<String> generos = new ArrayList<>();
+    List<String> listaGeneros = new ArrayList<>();
 
     //ArrayAdapter de Generos
     ArrayAdapter<String> aaGeneros;
@@ -76,8 +76,6 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
         //No abre el teclado automaticamente
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        //Carga Spinner
-        new BuscaAPI().execute();
     }
 
     private void cargarExtras() {
@@ -104,6 +102,15 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
         btnBorrarAlbum = (Button) findViewById(R.id.btnBorrarAlbum);
         btnBorrarAlbum.setOnClickListener(this);
 
+        //Spinners
+        spGeneros = findViewById(R.id.spGeneros);
+
+        //Carga Spinner
+        new BuscaAPI().execute();
+        ArrayAdapter<String> aaGeneros = new ArrayAdapter<>(EdicionAlbumFrm.this, android.R.layout.simple_spinner_dropdown_item, listaGeneros);
+        aaGeneros.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spGeneros.setAdapter(aaGeneros);
+
         //Modifica Boton Agregar o Modificar
         if (agregar) {
             btnAgModAlbum.setText("Agregar Álbum");
@@ -117,27 +124,30 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
             cargarDatos(album);
         }
 
-        //Spinners
-        spGeneros = findViewById(R.id.spGeneros);
-        //Adapter
-        aaGeneros = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, generos);
-        aaGeneros.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spGeneros.setAdapter(aaGeneros);
-
     }
 
     private void cargarDatos(ArrayList album) {
 
         try {
             //Carga datos en EditTexts
-            etAlbum.setText(album.get(0).toString());
+            etAlbum.setText(album.get(1).toString());
+            etArtista.setText(album.get(2).toString());
 
-            //deshabilita ID
-            etAlbum.setEnabled(false);
+            //para mostrar género en el spínner
+            for (int i = 0; i < spGeneros.getAdapter().getCount(); i++) {
 
-            //continua cargando datos
-            etArtista.setText(album.get(1).toString());
-            etYear.setText(album.get(3).toString());
+                //verifica que sea el genero
+                if (spGeneros.getAdapter().getItem(i).toString().contains(album.get(3).toString())) {
+
+                    //selecciona texto
+                    spGeneros.setSelection(i);
+
+                }
+
+            }
+
+            //carga texto año
+            etYear.setText(album.get(4).toString());
         } catch (Exception e) {
             Toast.makeText(this, "Hubo un error: \n" + e, Toast.LENGTH_LONG);
         }
@@ -159,8 +169,8 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
 
                         //Crea album
                         Album albumModificar = new Album(
-                                etAlbum.getText().toString(),
                                 etArtista.getText().toString(),
+                                etAlbum.getText().toString(),
                                 spGeneros.getSelectedItem().toString(),
                                 Long.parseLong(etYear.getText().toString())
                         );
@@ -174,14 +184,12 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                         //cierra
                         this.finish();
 
-                        break;
-
                     } else {
 
                         //Crea album
                         Album albumMostrar = new Album(
-                                etAlbum.getText().toString(),
                                 etArtista.getText().toString(),
+                                etAlbum.getText().toString(),
                                 spGeneros.getSelectedItem().toString(),
                                 Long.parseLong(etYear.getText().toString())
                         );
@@ -192,12 +200,13 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                         //Cierra
                         this.finish();
 
-                        break;
                     }
 
                 } catch (Exception e) {
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG);
                 }
+
+                break;
 
                 //Borra album
             case R.id.btnBorrarCliente:
@@ -206,6 +215,7 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("¿Seguro de que desea eliminar el álbum?").setPositiveButton("Sí", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
+                break;
 
         }
     }
@@ -270,6 +280,26 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
         String line = "";
 
         @Override
+        protected void onPostExecute(ArrayList<String> strings) {
+
+            try {
+
+                String finalJson = buffer.toString();
+                JSONObject json = new JSONObject(new String(finalJson));
+                JSONArray jsonArray = (JSONArray) json.get("generos");
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    listaGeneros.add(jsonArray.get(i).toString());
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            super.onPostExecute(strings);
+        }
+
+        @Override
         protected ArrayList<String> doInBackground(String... strings) {
 
             //Dunno
@@ -289,34 +319,11 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
                     buffer.append(line);
                 }
 
-                String finalJson = buffer.toString();
-                JSONObject json = new JSONObject(new String(finalJson));
-                JSONArray jsonArray = (JSONArray) json.get("generos");
-
-                List<String> listaGeneros = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    listaGeneros.add(jsonArray.get(i).toString());
-                }
-
-                generos = (ArrayList<String>) listaGeneros;
-
-                aaGeneros.notifyDataSetChanged();
+                connection.disconnect();
+                reader.close();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -324,6 +331,5 @@ public class EdicionAlbumFrm extends AppCompatActivity implements View.OnClickLi
             return null;
         }
     }
-
 
 }

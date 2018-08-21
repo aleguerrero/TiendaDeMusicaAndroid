@@ -129,7 +129,7 @@ public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickLi
                         Album albumLista = new Album();
 
                         //Atributos
-                        albumLista.id = Long.parseLong(snapshot.getKey());
+                        albumLista.id = snapshot.getKey();
                         albumLista.Album = album.Album;
                         albumLista.Artista = album.Artista;
                         albumLista.Genero = album.Genero;
@@ -178,7 +178,7 @@ public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickLi
                         //verifica que el ID sea igual al que se tomó
                         if (idAlbum.equals(album.id)) {
                             //toma info
-                            albumReturn.add(Long.toString(album.id));
+                            albumReturn.add(album.id);
                             albumReturn.add(album.Album);
                             albumReturn.add(album.Artista);
                             albumReturn.add(album.Genero);
@@ -207,7 +207,7 @@ public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickLi
                         //verifica que el ID sea igual al que se tomó
                         if (idAlbum.equals(album.id)) {
                             //toma info
-                            albumReturn.add(Long.toString(album.id));
+                            albumReturn.add(album.id);
                             albumReturn.add(album.Album);
                             albumReturn.add(album.Artista);
                             albumReturn.add(album.Genero);
@@ -254,7 +254,7 @@ public class Albumes_Mostrar extends AppCompatActivity implements View.OnClickLi
                         Map<String, String> mapaAlbumes = new HashMap<>();
 
                         //Separa nombre y apellidos
-                        String[] textos = map.get("nombre").split(" ");
+                        String[] textos = map.get("nombre").split(" de ");
                         String nombreBuscar = textos[0];
 
                         //Busca que el nombre sea igual
